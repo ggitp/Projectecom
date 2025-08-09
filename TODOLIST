@@ -1,12 +1,15 @@
 To do now :
 
-1. Understand and help to fix the ML, Check if UserSearchHistory ("search_count") is needed for the ML.
-2. Setup RabbitMQ ( define Queue, Exchange, Binding ), Inject the template into service.
-3. Setup RabbitMQ sender/consumer.
-4. Test ElasticSearch with RabbitMQ.
-5. Polish existing code.
-6. Discuss ElasticSearch features ( like search box feature of the site through Elastic ).
-7. Update the code to write to ElasticSearch as well.
+
+1. Check if UserSearchHistory ("search_count") is needed for the ML.
+2. Understand and help to fix the ML with the new "search_count" field, if not needed then revert.
+3. Setup a container for ML service if needed.
+4. Setup RabbitMQ template ( define Queue, Exchange, Binding ), Inject the template into service.
+5. Setup RabbitMQ sender/consumer.
+6. Test ElasticSearch with RabbitMQ.
+7. Polish existing code.
+8. Discuss ElasticSearch features ( like search box feature of the site through Elastic ).
+9. Update the code so that it writes to ElasticSearch as well.
 
 To do later :
 

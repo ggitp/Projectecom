@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Python
+__pycache__/
+*.pyc
+
 ### STS ###
 .apt_generated
 .classpath
