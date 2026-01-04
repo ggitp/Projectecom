@@ -30,13 +30,6 @@ cart - list[cartitem] - items in currect shopping cart
 
 _____________________________________________________________________
 
-the server writes/reads to/from postgresql,elastic,rabbit
-other services like ml, can consume rabbitmq messages or read from postgresql/elastic
-
-
-
-
-
 
 Where should ML live?
 Option A — Standalone service in Docker (recommended)
@@ -76,3 +69,24 @@ ML consumes → writes to user_recommendations(user_id, product_id, score, updat
 Backend exposes GET /recommendations by reading that table.
 
 No frontend → RabbitMQ, ever.
+
+________________________________________________________________________________________
+
+Whats hot/Popular purchases block :
+
+1. Backend will periodically (every 20-30 seconds) call a method to sort elastic database by purchase count
+    and return the top X items by purchase count.
+3. Save that top X to cache on backend
+4. Whenever a user accesses the frontend UI, Load Popular purchases from cache.
+
+
+Side notes :
+Setup a TTL for that cache
+*If Elastic is down, sort in postgres
+Whenever a user purchases an item, In postgres update the quantity, Increase purchase count, Push purchase count
+or score to elastic.
+
+________________________________________________________________________________________
+
+
+

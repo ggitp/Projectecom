@@ -1,5 +1,6 @@
 package com.shop.ecommerce.model;
 
+import com.shop.ecommerce.model.UserSegment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class User {
 
     @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -42,11 +44,37 @@ public class User {
     @Column(name = "is_guest")
     private boolean isGuest;
 
+    @Setter
+    @Getter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "segment")
+    private UserSegment segment;
+
+    @Setter
+    @Getter
+    @Column(name = "last_activity")
+    private LocalDateTime lastActivity;
+
+    @Setter
+    @Getter
+    @Column(name = "last_classified_at")
+    private LocalDateTime lastClassifiedAt;
+
+    @Setter
+    @Getter
+    @Column(name = "event_counter")
+    private int eventCounter;
+
     // table for user search history to know how many times a user searched for keyword (example : "laptop : 4 times")
     @Setter
     @Getter
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserSearchHistory> searchHistory;
+
+    @Setter
+    @Getter
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserViewHistory> viewHistory;
 
     @Setter
     @Getter
@@ -70,6 +98,7 @@ public class User {
     // Default constructor required by JPA
     public User() {
         this.searchHistory = new ArrayList<UserSearchHistory>();
+        this.viewHistory = new ArrayList<UserViewHistory>();
         this.purchaseHistory = new ArrayList<Integer>();
         this.wishList = new ArrayList<Integer>();
         this.cartItems = new ArrayList<CartItem>();
@@ -85,9 +114,14 @@ public class User {
         this.createdAt = LocalDateTime.now();
         this.isGuest = true;
         this.searchHistory = new ArrayList<UserSearchHistory>();
+        this.viewHistory = new ArrayList<UserViewHistory>();
         this.purchaseHistory = new ArrayList<Integer>();
         this.wishList = new ArrayList<Integer>();
         this.cartItems = new ArrayList<CartItem>();
+        this.segment = UserSegment.UNCLASSIFIED;
+        this.eventCounter = 0;
+        this.lastClassifiedAt = null;
+        this.lastActivity = LocalDateTime.now();
     }
 
 }

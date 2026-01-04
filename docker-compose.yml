@@ -58,6 +58,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin123
+#    volumes:
+#      - rabbit_data:/var/lib/rabbitmq
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.14.3
@@ -74,4 +76,4 @@ services:
 volumes:
   postgres_data:
   es_data:
-  rabbit_data:
+#  rabbit_data:
