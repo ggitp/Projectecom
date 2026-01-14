@@ -8,6 +8,10 @@ import java.time.LocalDateTime;       // for date and time
 import java.util.List;
 import java.util.ArrayList;
 
+/// JPA entity representing a product stored in the database.
+/// Loaded by ProductRepository and used internally in services.
+/// Never sent directly to the frontend.
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -66,6 +70,17 @@ public class Product {
 
     @Getter
     @Setter
+    @Column
+    private float rating;
+
+    @Getter
+    @Setter
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
+
+    @Getter
+    @Setter
     @ElementCollection
     @CollectionTable(name = "product_tags", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag")
@@ -78,7 +93,7 @@ public class Product {
     }
 
     // Product's Constructor
-    public Product(String productName, String description, String category, float price, int quantity, String imageUrl, LocalDateTime createdAt, LocalDateTime updatedAt, List<String> tags) {
+    public Product(String productName, String description, String category, float price, int quantity, String imageUrl, int views,float rating, LocalDateTime createdAt, LocalDateTime updatedAt, List<String> tags) {
         this.productName = productName;
         this.description = description;
         this.category = category;
@@ -87,7 +102,8 @@ public class Product {
         this.imageUrl = imageUrl;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
-        this.views = 0;
+        this.views = views;
+        this.rating = rating;
         this.tags = tags != null ? tags : new ArrayList<String>();
     }
 

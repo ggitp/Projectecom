@@ -5,6 +5,9 @@ import com.shop.ecommerce.model.Product;
 import com.shop.ecommerce.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+/// REST controller handling HTTP requests.
+/// Delegates all logic to ProductService and returns DTOs as responses.
+
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {

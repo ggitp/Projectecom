@@ -60,11 +60,11 @@ public class DataInitializer implements CommandLineRunner {
 
     private void createSampleProducts() {
         List<Product> products = Arrays.asList(
-            new Product("iPhone 15 Pro", "Latest iPhone with advanced camera system", "Electronics", 999.99f, 50, "https://example.com/iphone15.jpg", LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("smartphone", "apple", "camera")),
-            new Product("MacBook Air M2", "Lightweight laptop with M2 chip", "Electronics", 1199.99f, 30, "https://example.com/macbook-air.jpg", LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("laptop", "apple", "m2")),
-            new Product("Nike Air Max", "Comfortable running shoes", "Sports", 129.99f, 100, "https://example.com/nike-airmax.jpg", LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("shoes", "running", "nike")),
-            new Product("Coffee Maker", "Automatic coffee machine", "Home & Kitchen", 89.99f, 75, "https://example.com/coffee-maker.jpg", LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("coffee", "kitchen", "appliance")),
-            new Product("Wireless Headphones", "Bluetooth noise-canceling headphones", "Electronics", 199.99f, 60, "https://example.com/headphones.jpg", LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("audio", "bluetooth", "wireless"))
+            new Product("iPhone 15 Pro", "Latest iPhone with advanced camera system", "Electronics", 999.99f, 50, "https://example.com/iphone15.jpg",0, 0f, LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("smartphone", "apple", "camera")),
+            new Product("MacBook Air M2", "Lightweight laptop with M2 chip", "Electronics", 1199.99f, 30, "https://example.com/macbook-air.jpg",0, 0f, LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("laptop", "apple", "m2")),
+            new Product("Nike Air Max", "Comfortable running shoes", "Sports", 129.99f, 100, "https://example.com/nike-airmax.jpg",0, 0f, LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("shoes", "running", "nike")),
+            new Product("Coffee Maker", "Automatic coffee machine", "Home & Kitchen", 89.99f, 75, "https://example.com/coffee-maker.jpg",0, 0f, LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("coffee", "kitchen", "appliance")),
+            new Product("Wireless Headphones", "Bluetooth noise-canceling headphones", "Electronics", 199.99f, 60, "https://example.com/headphones.jpg",0, 0f, LocalDateTime.now(), LocalDateTime.now(), Arrays.asList("audio", "bluetooth", "wireless"))
         );
 
         productRepository.saveAll(products);

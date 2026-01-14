@@ -1,13 +1,19 @@
 package com.shop.ecommerce.service;
 
+import com.shop.ecommerce.dto.ProductSuggestionDto;
 import com.shop.ecommerce.dto.ProductUpsertRequest;
 import com.shop.ecommerce.messaging.publisher.ProductEventPublisher;
 import com.shop.ecommerce.messaging.dto.ProductEventType;
+import com.shop.ecommerce.model.Discount;
 import com.shop.ecommerce.model.Product;
 import com.shop.ecommerce.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
+/// Service containing business logic for products.
+/// Fetches entities from repositories, applies rules (discounts),
+/// and maps entities into DTOs.
 
 @Service
 public class ProductService {
@@ -30,6 +36,8 @@ public class ProductService {
             req.getPrice(),
             req.getQuantity(),
             req.getImageUrl(),
+            req.getViews(),
+            req.getRating(),
             now, now,
             req.getTags()
     );
@@ -53,6 +61,8 @@ public class ProductService {
     p.setImageUrl(req.getImageUrl());
     p.setTags(req.getTags());
     p.setUpdatedAt(LocalDateTime.now());
+    p.setRating(req.getRating());
+    p.setViews(req.getViews());
 
     Product saved = productRepository.save(p);
     productEventPublisher.publish(ProductEventType.UPDATED, saved);
@@ -70,5 +80,35 @@ public class ProductService {
   public Product getById(int id) {
     return productRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Product not found: " + id));
+  }
+
+  public ProductSuggestionDto toSuggestion(Product p) {
+    float price = p.getPrice();
+    Discount d = p.getDiscount();
+
+    if (d == null || !d.isActiveNow(LocalDateTime.now())) {
+      return new ProductSuggestionDto(
+              p.getId(),
+              p.getProductName(),
+              p.getCategory(),
+              price,
+              price,
+              null,
+              p.getImageUrl()
+      );
+    }
+
+    int percent = d.getPercent();
+    float finalPrice = price * (100 - percent) / 100f;
+
+    return new ProductSuggestionDto(
+            p.getId(),
+            p.getProductName(),
+            p.getCategory(),
+            price,
+            finalPrice,
+            percent,
+            p.getImageUrl()
+    );
   }
 }

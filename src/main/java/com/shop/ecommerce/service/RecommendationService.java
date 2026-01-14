@@ -27,7 +27,8 @@ public class RecommendationService {
                     p.getPrice(),
                     p.getImageUrl(),
                     p.getCategory(),
-                    p.getViews()
+                    p.getViews(),
+                    p.getRating()
             ))
             .toList();
   }
