@@ -33,6 +33,7 @@ public class ProductService {
             req.getProductName(),
             req.getDescription(),
             req.getCategory(),
+            req.getBrand(),
             req.getPrice(),
             req.getQuantity(),
             req.getImageUrl(),
@@ -56,6 +57,7 @@ public class ProductService {
     p.setProductName(req.getProductName());
     p.setDescription(req.getDescription());
     p.setCategory(req.getCategory());
+    p.setBrand(req.getBrand());
     p.setPrice(req.getPrice());
     p.setQuantity(req.getQuantity());
     p.setImageUrl(req.getImageUrl());

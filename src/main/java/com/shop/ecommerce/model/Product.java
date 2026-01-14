@@ -40,6 +40,16 @@ public class Product {
 
     @Getter
     @Setter
+    @Column(name = "sub_category", nullable = false)
+    private String subCategory = "Unclassified";
+
+    @Getter
+    @Setter
+    @Column
+    private String brand;
+
+    @Getter
+    @Setter
     @Column(nullable = false)
     private float price;
 
@@ -65,13 +75,13 @@ public class Product {
 
     @Getter
     @Setter
-    @Column
-    private int views;
+    @Column(nullable = false)
+    private int views = 0;
 
     @Getter
     @Setter
-    @Column
-    private float rating;
+    @Column(nullable = false)
+    private float rating = 0f;
 
     @Getter
     @Setter
@@ -93,10 +103,24 @@ public class Product {
     }
 
     // Product's Constructor
-    public Product(String productName, String description, String category, float price, int quantity, String imageUrl, int views,float rating, LocalDateTime createdAt, LocalDateTime updatedAt, List<String> tags) {
+    public Product(
+            String productName,
+            String description,
+            String category,
+            String brand,
+            float price,
+            int quantity,
+            String imageUrl,
+            int views,
+            float rating,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            List<String> tags
+    ) {
         this.productName = productName;
         this.description = description;
         this.category = category;
+        this.brand = brand;
         this.price = price;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
@@ -104,7 +128,7 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
         this.views = views;
         this.rating = rating;
-        this.tags = tags != null ? tags : new ArrayList<String>();
+        this.tags = tags != null ? tags : new ArrayList<>();
     }
 
 }

@@ -15,6 +15,7 @@ public class ProductUpsertRequest {
   private String productName;
   private String description;
   private String category;
+  private String brand;
   private float price;
   private int quantity;
   private String imageUrl;

@@ -13,6 +13,8 @@ public class ProductSyncDto {
   private String productName;
   private String description;
   private String category;
+  private String subCategory;
+  private String brand;
   private float price;
   private int quantity;
   private String imageUrl;
@@ -24,13 +26,15 @@ public class ProductSyncDto {
 
   public ProductSyncDto() {}
 
-  public ProductSyncDto(int id, String productName, String description, String category,
-                        float price, int quantity, String imageUrl,
+  public ProductSyncDto(int id, String productName, String description, String category, String subCategory,
+                        String brand, float price, int quantity, String imageUrl,
                         List<String> tags, int views, float rating, LocalDateTime createdAt, LocalDateTime updatedAt) {
     this.id = id;
     this.productName = productName;
     this.description = description;
     this.category = category;
+    this.subCategory = subCategory;
+    this.brand = brand;
     this.price = price;
     this.quantity = quantity;
     this.imageUrl = imageUrl;
@@ -47,6 +51,8 @@ public class ProductSyncDto {
             p.getProductName(),
             p.getDescription(),
             p.getCategory(),
+            p.getSubCategory(),
+            p.getBrand(),
             p.getPrice(),
             p.getQuantity(),
             p.getImageUrl(),

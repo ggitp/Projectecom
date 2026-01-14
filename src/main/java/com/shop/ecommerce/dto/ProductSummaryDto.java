@@ -11,6 +11,8 @@ public class ProductSummaryDto {
   private float price;
   private String imageUrl;
   private String category;
+  private String subCategory;
+  private String publisher;
   private int views;
   private float rating;
 }
