@@ -27,6 +27,8 @@ public class RecommendationService {
                     p.getPrice(),
                     p.getImageUrl(),
                     p.getCategory(),
+                    p.getSubCategory(),
+                    p.getBrand(),
                     p.getViews(),
                     p.getRating()
             ))

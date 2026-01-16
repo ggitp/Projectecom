@@ -1,5 +1,6 @@
 package com.shop.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public class Discount {
 
   @Getter
   @Setter
+  @JsonIgnore
   @OneToOne(mappedBy = "discount")
   private Product product;
 

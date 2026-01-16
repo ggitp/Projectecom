@@ -1,5 +1,6 @@
 package com.shop.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class UserSearchHistory {
   @EmbeddedId
   private UserSearchHistoryId id;
 
+  @JsonIgnore
   @Getter
   @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("userId")

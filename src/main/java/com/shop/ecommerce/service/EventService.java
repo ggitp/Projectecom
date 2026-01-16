@@ -1,10 +1,10 @@
 package com.shop.ecommerce.service;
 
+import com.shop.ecommerce.messaging.publisher.MLEventPublisher;
 import com.shop.ecommerce.model.*;
 import com.shop.ecommerce.repository.UserViewHistoryRepository;
 import com.shop.ecommerce.repository.ProductRepository;
 import com.shop.ecommerce.repository.UserRepository;
-import com.shop.ecommerce.messaging.publisher.UserBehaviorPublisher;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 @Service
 public class EventService {
 
+  private final MLEventPublisher mlPublisher;
   private final UserRepository userRepository;
   private final ProductRepository productRepository;
   private final UserViewHistoryRepository userViewHistoryRepository;
-  private final UserBehaviorPublisher publisher;
 
   private static final int numToClassify = 5;
   private static final int numToReclassify = 15;
@@ -25,11 +25,11 @@ public class EventService {
   public EventService(UserRepository userRepository,
                       ProductRepository productRepository,
                       UserViewHistoryRepository userViewHistoryRepository,
-                      UserBehaviorPublisher publisher) {
+                      MLEventPublisher mlPublisher) {
     this.userRepository = userRepository;
     this.productRepository = productRepository;
     this.userViewHistoryRepository = userViewHistoryRepository;
-    this.publisher = publisher;
+    this.mlPublisher = mlPublisher;
   }
 
   public void onProductViewed(int userId, int productId) {
@@ -61,18 +61,20 @@ public class EventService {
 
     if (u.getSegment() == UserSegment.UNCLASSIFIED) {
       if(u.getEventCounter() >= numToClassify) {
-        publisher.publishReadyForClassification(userId, now);
+        mlPublisher.publishUserReadyCsv(u);
+        u.setEventCounter(0);
+        userRepository.save(u);
       }
     }
     else {
       if (u.getLastClassifiedAt() != null) {
         long hours = Duration.between(u.getLastClassifiedAt(),now).toHours();
-        if (u.getEventCounter() >= numToReclassify && hours >= hoursToReclassify)
-          publisher.publishReadyForReclassification(userId,now);
+        if (u.getEventCounter() >= numToReclassify && hours >= hoursToReclassify) {
+          mlPublisher.publishUserReadyCsv(u);
+          u.setEventCounter(0);
+          userRepository.save(u);
+        }
       }
     }
   }
-
-
-
 }

@@ -2,6 +2,7 @@ package com.shop.ecommerce.config;
 
 import com.shop.ecommerce.model.Product;
 import com.shop.ecommerce.model.User;
+import com.shop.ecommerce.model.UserSegment;
 import com.shop.ecommerce.repository.ProductRepository;
 import com.shop.ecommerce.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class DataInitializer implements CommandLineRunner {
             adminUser.setPasswordHash(passwordEncoder.encode("admin123"));
             adminUser.setCreatedAt(LocalDateTime.now());
             adminUser.setGuest(false);
+            adminUser.setSegment(UserSegment.UNCLASSIFIED);
             userRepository.save(adminUser);
             System.out.println("Admin user created: admin@ecommerce.com / admin123");
         }
@@ -47,6 +49,7 @@ public class DataInitializer implements CommandLineRunner {
             regularUser.setPasswordHash(passwordEncoder.encode("user123"));
             regularUser.setCreatedAt(LocalDateTime.now());
             regularUser.setGuest(false);
+            regularUser.setSegment(UserSegment.UNCLASSIFIED);
             userRepository.save(regularUser);
             System.out.println("Regular user created: user@ecommerce.com / user123");
         }

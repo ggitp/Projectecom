@@ -1,5 +1,6 @@
 package com.shop.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class UserViewHistory {
   private UserViewHistoryId id;
 
   @Getter
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @MapsId("userId")
   @JoinColumn(name = "user_id")

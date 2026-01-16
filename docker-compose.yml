@@ -77,3 +77,13 @@ volumes:
   postgres_data:
   es_data:
 #  rabbit_data:
+
+
+
+
+
+
+
+
+
+
